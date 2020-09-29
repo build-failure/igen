@@ -1,8 +1,8 @@
 [![Travis (.org) branch](https://img.shields.io/travis/build-failure/yaig/master)](https://travis-ci.org/build-failure/yaig)
 [![Codecov](https://img.shields.io/codecov/c/github/build-failure/yaig)](https://codecov.io/gh/build-failure/yaig)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/build-failure/yaig)](https://codeclimate.com/github/build-failure/yaig)
-[![Docker Pulls](https://img.shields.io/docker/pulls/build-failure/yaig)](https://hub.docker.com/r/build-failure/yaig)
-[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/build-failure/yaig)](https://hub.docker.com/repository/docker/build-failure/yaig/tags?page=1)
+[![Docker Pulls](https://img.shields.io/docker/pulls/buildfailure/yaig)](https://hub.docker.com/r/buildfailure/yaig)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/build-failure/yaig)](https://hub.docker.com/repository/docker/buildfailure/yaig/tags?page=1)
 
 # Yet Another Invoice Generator
 
