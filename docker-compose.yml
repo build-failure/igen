@@ -4,3 +4,5 @@ services:
     image: build-failure/yaig:dev
     build:
       context: .
+    volumes:
+      - ./src/test/resources/files:/files

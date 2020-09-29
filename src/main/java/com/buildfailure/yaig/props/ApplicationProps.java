@@ -8,26 +8,18 @@ import org.thymeleaf.templatemode.TemplateMode;
 @ConfigurationProperties(prefix = "yaig")
 public class ApplicationProps {
 
-    private String baseDir = "./files";
+    private String baseDir;
 
     private String templateSuffix = ".html";
 
-    private String sourceDir = getBaseDir() + "/src";
-
-    private String invoiceDir = getSourceDir() + "/invoices";
-
-    private String buildDir = getBaseDir() + "/dist";
-
-    private String templatePath = getSourceDir() + "/templates/";
-
     private TemplateMode templateMode = TemplateMode.HTML;
 
-    public String getTemplatePath() {
-        return templatePath;
+    public String getBaseDir() {
+        return baseDir;
     }
 
-    public void setTemplatePath(String templatePath) {
-        this.templatePath = templatePath;
+    public void setBaseDir(String baseDir) {
+        this.baseDir = baseDir;
     }
 
     public String getTemplateSuffix() {
@@ -38,14 +30,6 @@ public class ApplicationProps {
         this.templateSuffix = templateSuffix;
     }
 
-    public String getInvoiceDir() {
-        return invoiceDir;
-    }
-
-    public void setInvoiceDir(String invoiceDir) {
-        this.invoiceDir = invoiceDir;
-    }
-
     public TemplateMode getTemplateMode() {
         return templateMode;
     }
@@ -54,27 +38,18 @@ public class ApplicationProps {
         this.templateMode = templateMode;
     }
 
-    public String getBaseDir() {
-        return baseDir;
+    public String getTemplatePath() {
+        return getSourceDir() + "/templates/";
     }
-
-    public void setBaseDir(String baseDir) {
-        this.baseDir = baseDir;
+    public String getInvoiceDir() {
+        return getSourceDir() + "/invoices";
     }
 
     public String getBuildDir() {
-        return buildDir;
-    }
-
-    public void setBuildDir(String buildDir) {
-        this.buildDir = buildDir;
+        return getBaseDir() + "/dist";
     }
 
     public String getSourceDir() {
-        return sourceDir;
-    }
-
-    public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir;
+        return getBaseDir() + "/src";
     }
 }

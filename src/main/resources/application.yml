@@ -1,2 +1,2 @@
 yaig:
-  base-dir: classpath:files
+  base-dir: file:///files
