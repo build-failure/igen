@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title th:text="${'Rechnung ' + id}">Rechnung 202009-1</title>
+
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr.top td:nth-child(2),
+        .invoice-box table tr.information td:nth-child(2){
+            text-align: right;
+        }
+
+        .invoice-box table tr.heading td:nth-child(n+3),
+        .invoice-box table tr.item td:nth-child(n+3),
+        .invoice-box table tr.total td:nth-child(n+3) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td{
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.total td:nth-child(2) {
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="5">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img th:src="'../src/images/logo.png'" src="../../src/images/logo.png" style="width:100%; max-width:350px;">
+                        </td>
+
+                        <td>
+                            Rechnung #: <span th:text="${id}">202009-1</span><br>
+                            Ausstellungsdatum: <span th:text="${#temporals.format(now, 'dd.MM.yyyy')}">29.09.2020</span><br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="5">
+                <table>
+                    <tr>
+                        <td>
+                            <span th:text="${receiver['name']}">Bauer GmbH</span><br>
+                            <span th:text="${receiver['address_street']}">Landstr. 1</span><br>
+                            <span th:text="${receiver['address_code']}">12345</span>
+                            <span th:text="${receiver['address_state']}">Berlin</span>
+                        </td>
+
+                        <td>
+                            <span th:text="${issuer['name']}">Horn & Huf GmbH</span><br>
+                            <span th:text="${issuer['address_street']}">Breite Str. 1</span><br>
+                            <span th:text="${issuer['address_code']}">12345</span>
+                            <span th:text="${issuer['address_state']}">Berlin</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="heading">
+            <td>
+                Pos.
+            </td>
+
+            <td>
+                Artikel
+            </td>
+
+            <td>
+                Preis
+            </td>
+
+            <td>
+                Menge
+            </td>
+
+            <td>
+                Gesamt
+            </td>
+        </tr>
+
+        <tr class="item" th:each="item, iter: ${items}">
+            <td th:text="${iter.index + 1}">1</td>
+            <td th:text="${item.name}">Milch</td>
+            <td th:text="${#numbers.formatCurrency(item.price)}">0,75€</td>
+            <td th:text="${#numbers.formatDecimal(item.amount,0,2) + ' ' + item.unit}">1,5 l</td>
+            <td th:text="${#numbers.formatCurrency(item.total)}">1,00€</td>
+        </tr>
+
+        <tr class="total">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <span th:text="${#numbers.formatCurrency(total_net)}">1,00€</span>
+            </td>
+        </tr>
+
+        <tr class="total">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <span th:text="${(#numbers.formatDecimal(100 * vat,0,2)) + ' %'}">19%</span>
+                USt.
+            </td>
+            <td>
+                <span th:text="${#numbers.formatCurrency(total_vat)}">0,19€</span>
+            </td>
+        </tr>
+
+        <tr class="total">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                Total
+            </td>
+            <td>
+                <span th:text="${#numbers.formatCurrency(total_gross)}">1,19€</span>
+            </td>
+        </tr>
+
+        <tr class="bottom">
+            <td colspan="5">
+                <table>
+                    <tr>
+                        <td colspan="5" style="font-size: xx-small">
+                            <span th:text="${issuer['name']}">Horn & Huf GmbH</span> -
+                            <span th:text="${issuer['bank_name']}">Deutsche Bank AG</span>
+                            IBAN <span th:text="${issuer['bank_iban']}">DE11 1111 1111 1111 1111 11</span>
+                            BIC <span th:text="${issuer['bank_bic']}">XXXXXXXXXXX</span> -
+                            Sitz der Gesellschaft: <span th:text="${issuer['address_state']}">Berlin</span>,
+                            <span th:text="${issuer['address_country']}">Deutschland</span> -
+                            Geschäftsführung: <span th:text="${issuer['ceo']}">Max Mustermann</span> -
+                            Handelsregister: <span th:text="${issuer['register_name']}">AG Tempelhof</span>
+                            <span th:text="${issuer['register_id']}">HRB 11111 P</span> -
+                            USt-IdNr. <span th:text="${issuer['vat_id']}">DE111111111</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

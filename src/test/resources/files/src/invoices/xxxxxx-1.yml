@@ -1,0 +1,15 @@
+---
+id: xxxxxx-1
+items:
+  - name: Milch
+    unit: l
+    amount: 15.0
+    price: 0.65
+  - name: Käse
+    unit: kg
+    amount: 5.0
+    price: 3.5
+  - name: Schinken
+    unit: kg
+    amount: 2.5
+    price: 8.35

@@ -1,0 +1,24 @@
+---
+vat: 0.16
+locale: de_DE
+template: basic.html
+issuer:
+  name: Horn & Huf GmbH
+  address_street: Breite Str. 1
+  address_code: 12345
+  address_state: Berlin
+  address_country: Deutschland
+  bank_name: Deutsche Bank AG
+  bank_iban: DE11 1111 1111 1111 1111 11
+  bank_bic: XXXXXXXXXXX
+  ceo: Max Mustermann
+  register_name: AG Tempelhof
+  register_id: HRB 11111 P
+  vat_id: DE111111111
+receiver:
+  name: Bauer GmbH
+  address_street: Landstr. 1
+  address_code: 12345
+  address_state: Berlin
+  address_country: Deutschland
+
